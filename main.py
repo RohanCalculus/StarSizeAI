@@ -18,7 +18,7 @@ app = FastAPI()
 #     allow_headers=["*"],  # Allow all headers
 # )
 
-# Constants for the linear regression model
+# Constants for the linear regression model (taken from training_star_size_predictor.ipynb)
 W = 1.982015  # Weight (slope) for the linear model
 b = 9.500380  # Bias (intercept) for the linear model
 
