@@ -77,8 +77,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Define the FastAPI endpoints
-PREDICT_ENDPOINT = "http://127.0.0.1:8000/predict/"
-PLOT_ENDPOINT = "http://127.0.0.1:8000/plot/"
+PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com//predict/"
+PLOT_ENDPOINT = "https://star-size-predictor.onrender.com//plot/"
 
 # Initialize session state to track the last uploaded file
 if 'last_uploaded_file' not in st.session_state:
