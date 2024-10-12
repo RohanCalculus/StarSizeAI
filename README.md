@@ -10,3 +10,9 @@ To create the readme file, these are the basic things you need to have!
 6. Contributions (name of the contributors of this project, if someone else wants to contribute they can contact you guys)
 
 YOU CAN ALWAYS BEAUTIFY it to attract readers attention
+
+
+## Create your Dataset to use it on Webapp
+* You can use [this file](https://github.com/SpartificialUdemy/project_1/blob/main/create_data.py) to create your dataset
+* Just make sure to change the star size variable and run the file
+* Or you can use [this demo dataset](https://github.com/SpartificialUdemy/project_1/blob/main/input_star_data.csv) if you don't want to recreate data
