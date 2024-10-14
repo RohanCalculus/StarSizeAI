@@ -180,7 +180,6 @@ if uploaded_file is not None:
             
             if plot_response.status_code == 200:
                 # Display the plot
-                st.write("### Linear Regression Plot:")
                 st.image(BytesIO(plot_response.content))
             else:
                 st.error("Failed to generate the plot. Please try again.")
