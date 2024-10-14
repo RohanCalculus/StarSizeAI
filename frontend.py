@@ -9,75 +9,106 @@ st.set_page_config(
     page_icon="🌟"
 )
 
-# URL for the background image
-background_image_url = "https://4kwallpapers.com/images/walls/thumbs_3t/10307.jpg"
-
-# Custom CSS for styling
-st.markdown(f"""
+st.markdown("""
     <style>
-        body {{
-            background-image: url('{background_image_url}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-
-        .footer {{
+        .footer {
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
+            background-color: rgba(255, 255, 255, 1);
             color: rgba(0, 0, 0, 1);
-            background-color: rgba(255, 255, 255, 0.7);
             text-align: center;
             padding: 10px;
-            z-index: 1000;  /* Ensure it's on top of other elements */
-        }}
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1000;
+        }
 
-        /* Create space at the bottom of the app for the footer */
-        .content {{
-            padding-bottom: 60px;  /* Adjust based on footer height */
-        }}
-
-        [data-testid="stAppViewContainer"] {{
-            padding-bottom: 60px;  /* Adjust this to match the footer height */
-        }}
-
-        [data-testid="stSidebar"] {{
-            background-color: rgba(255, 255, 255, 0.7);
-        }}
-
-        .black-container {{
-            background-color: black;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            line-height: 1.6;
-        }}
-
-        .yellow-container {{
-            background-color: #FFD700;  /* Golden yellow */
-            color: black;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }}
+        /* Add padding at the bottom to avoid overlap with the footer */
+        .stApp {
+            padding-bottom: 50px;
+        }
     </style>
+    <div class="footer">
+        <p>This is a demo project built as a part of the ML for Astronomy Training Program at Spartificial.</p>
+    </div>
 """, unsafe_allow_html=True)
+
+# Custom CSS to set the background image and style the containers
+background_image_url = "https://4kwallpapers.com/images/walls/thumbs_3t/10307.jpg"  # Replace with your image URL
+
+page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] {{
+    background-image: url("{background_image_url}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}}
+
+[data-testid="stSidebar"] {{
+    background-color: rgba(255, 255, 255, 0.7);
+}}
+
+.black-container {{
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+}}
+
+.yellow-container {{
+    background-color: #FFD700;  /* Golden yellow */
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 1.6;
+}}
+
+.green-container {{
+    background-color: #006400;  /* Dark Green */
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+}}
+</style>
+"""
+
+
+# Inject the CSS to the app
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Title and description of the app
 st.title("Star Size Predictor ✨")
 
-# Golden yellow container with a message
+# Updated "yellow-container" for app description
 st.markdown("""
 <div class="yellow-container">
     <p>This app will predict the Star Size based on its Brightness Value!</p>
+</div>
+""", unsafe_allow_html=True)
+
+# New blue container for step-by-step instructions on how to use the app
+st.markdown("""
+<div class="green-container">
+    <h4>How to use this app:</h4>
+    <ol>
+        <li><b><a href="https://drive.google.com/uc?id=1Rp8JATmZGsTv-mlYz9KzTgYJDB4DlC5c" target="_blank">Download</a> a sample CSV or <a href="https://github.com/SpartificialUdemy/project_1/blob/main/create_data.py" target="_blank">create your own</a> in case you don't have the dataset</b></li>
+        <li><b>Upload a CSV file (instructions given below)</b></li>
+        <li><b>Wait for predictions to be displayed</b></li>
+        <li><b>Plot the Linear Regression Results</b></li>
+        <li><b>You can download the prediction.csv and plot.png files if needed</b></li>
+    </ol>
 </div>
 """, unsafe_allow_html=True)
 
@@ -91,23 +122,20 @@ st.markdown("""
         <li><b>Second column:</b> Size of the stars (numerical values).</li>
     </ul>
     <p>Ensure there are no extra columns or missing values for accurate predictions.</p>
-    <p>To test this application, you can download a sample CSV file <a href="https://drive.google.com/uc?id=1Rp8JATmZGsTv-mlYz9KzTgYJDB4DlC5c" target="_blank">here</a>.</p>
 </div>
 """, unsafe_allow_html=True)
+
+
+# Define the FastAPI endpoints
+PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com/predict/"
+PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
 
 # Initialize session state to track the last uploaded file
 if 'last_uploaded_file' not in st.session_state:
     st.session_state.last_uploaded_file = None
 
-# Add a div with the class 'content' to wrap your main content
-st.markdown('<div class="content">', unsafe_allow_html=True)
-
 # File upload section
 uploaded_file = st.file_uploader("Upload your CSV file", type="csv")
-
-# Define the FastAPI endpoints
-PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com/predict/"
-PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
 
 # Check if a new file is uploaded (different from the last one)
 if uploaded_file is not None:
@@ -120,7 +148,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     
     # Send the file to the FastAPI predict endpoint
-    with st.spinner("Generating predictions..."):
+    with st.spinner("Generating predictions... (it may take a few mins in case app was idle for more than 15 minutes)."):
         response = requests.post(PREDICT_ENDPOINT, files={"file": uploaded_file.getvalue()})
 
     # Check if the request was successful
@@ -142,11 +170,16 @@ if uploaded_file is not None:
 
         # Button to trigger plot generation
         if st.button("Plot the Linear Regression"):
+            # Now, ensure the spinner is shown for the plot generation process
             with st.spinner("Generating plot..."):
+                # Convert the predicted dataframe to a CSV to send to the plot endpoint
                 predicted_csv_bytes = predicted_df.to_csv(index=False).encode('utf-8')
+                
+                # Send the predicted CSV to the plot endpoint
                 plot_response = requests.post(PLOT_ENDPOINT, files={"file": predicted_csv_bytes})
             
             if plot_response.status_code == 200:
+                # Display the plot
                 st.write("### Linear Regression Plot:")
                 st.image(BytesIO(plot_response.content))
             else:
@@ -154,13 +187,3 @@ if uploaded_file is not None:
     
     else:
         st.error("Failed to generate predictions. Please try again.")
-
-# Close the content div
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer
-st.markdown("""
-    <div class="footer">
-        <p>This is a demo project built as a part of ML4A Training Program</p>
-    </div>
-""", unsafe_allow_html=True)
