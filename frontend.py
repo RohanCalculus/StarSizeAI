@@ -9,48 +9,56 @@ st.set_page_config(
     page_icon="🌟"
 )
 
-# Custom CSS to set the background image and style the containers
-background_image_url = "https://4kwallpapers.com/images/walls/thumbs_3t/10307.jpg"  # Replace with your image URL
+# Custom CSS for styling
+st.markdown("""
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: rgba(0, 0, 0, 1);
+            background-color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;  /* Ensure it's on top of other elements */
+        }
 
-page_bg_img = f"""
-<style>
-[data-testid="stAppViewContainer"] {{
-    background-image: url("{background_image_url}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}}
+        /* Create space at the bottom of the app for the footer */
+        .content {
+            padding-bottom: 0px;  /* Adjust based on footer height */
+        }
 
-[data-testid="stSidebar"] {{
-    background-color: rgba(255, 255, 255, 0.7);
-}}
+        [data-testid="stAppViewContainer"] {
+            padding-bottom: 60px;  /* Adjust this to match the footer height */
+        }
 
-.black-container {{
-    background-color: black;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    line-height: 1.6;
-}}
+        [data-testid="stSidebar"] {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
 
-.yellow-container {{
-    background-color: #FFD700;  /* Golden yellow */
-    color: black;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}}
-</style>
-"""
+        .black-container {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
 
-# Inject the CSS to the app
-st.markdown(page_bg_img, unsafe_allow_html=True)
+        .yellow-container {
+            background-color: #FFD700;  /* Golden yellow */
+            color: black;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Title and description of the app
 st.title("Star Size Predictor ✨")
@@ -76,16 +84,19 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Define the FastAPI endpoints
-PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com/predict/"
-PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
-
 # Initialize session state to track the last uploaded file
 if 'last_uploaded_file' not in st.session_state:
     st.session_state.last_uploaded_file = None
 
+# Add a div with the class 'content' to wrap your main content
+st.markdown('<div class="content">', unsafe_allow_html=True)
+
 # File upload section
 uploaded_file = st.file_uploader("Upload your CSV file", type="csv")
+
+# Define the FastAPI endpoints
+PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com/predict/"
+PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
 
 # Check if a new file is uploaded (different from the last one)
 if uploaded_file is not None:
@@ -120,16 +131,11 @@ if uploaded_file is not None:
 
         # Button to trigger plot generation
         if st.button("Plot the Linear Regression"):
-            # Now, ensure the spinner is shown for the plot generation process
             with st.spinner("Generating plot..."):
-                # Convert the predicted dataframe to a CSV to send to the plot endpoint
                 predicted_csv_bytes = predicted_df.to_csv(index=False).encode('utf-8')
-                
-                # Send the predicted CSV to the plot endpoint
                 plot_response = requests.post(PLOT_ENDPOINT, files={"file": predicted_csv_bytes})
             
             if plot_response.status_code == 200:
-                # Display the plot
                 st.write("### Linear Regression Plot:")
                 st.image(BytesIO(plot_response.content))
             else:
@@ -137,3 +143,13 @@ if uploaded_file is not None:
     
     else:
         st.error("Failed to generate predictions. Please try again.")
+
+# Close the content div
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Footer
+st.markdown("""
+    <div class="footer">
+        <p>This is a demo project built as a part of ML4A Training Program</p>
+    </div>
+""", unsafe_allow_html=True)
