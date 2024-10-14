@@ -84,7 +84,6 @@ page_bg_img = f"""
 </style>
 """
 
-
 # Inject the CSS to the app
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
@@ -125,7 +124,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
 # Define the FastAPI endpoints
 PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com/predict/"
 PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
@@ -133,6 +131,10 @@ PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
 # Initialize session state to track the last uploaded file
 if 'last_uploaded_file' not in st.session_state:
     st.session_state.last_uploaded_file = None
+
+# Initialize session state for predictions
+if 'predicted_df' not in st.session_state:
+    st.session_state.predicted_df = None
 
 # File upload section
 uploaded_file = st.file_uploader("Upload your CSV file", type="csv")
@@ -143,45 +145,47 @@ if uploaded_file is not None:
     if uploaded_file != st.session_state.last_uploaded_file:
         st.session_state.clear()  # Clear session state to restart the app
         st.session_state.last_uploaded_file = uploaded_file  # Store the new file
+        st.session_state.predicted_df = None  # Reset predictions
 
     # Read the uploaded file into a DataFrame
     df = pd.read_csv(uploaded_file)
+
+    # Check if predictions are already stored in the session state
+    if st.session_state.predicted_df is None:
+        # Send the file to the FastAPI predict endpoint
+        with st.spinner("Generating predictions... (it may take a few mins if the app was idle for more than 15 minutes)."):
+            response = requests.post(PREDICT_ENDPOINT, files={"file": uploaded_file.getvalue()})
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Read the prediction results from the response
+            st.session_state.predicted_df = pd.read_csv(BytesIO(response.content))  # Store predictions in session state
+        else:
+            st.error("Failed to generate predictions. Please try again.")
     
-    # Send the file to the FastAPI predict endpoint
-    with st.spinner("Generating predictions... (it may take a few mins in case app was idle for more than 15 minutes)."):
-        response = requests.post(PREDICT_ENDPOINT, files={"file": uploaded_file.getvalue()})
+    # Display the original and predicted CSV files side by side
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.write("#### Original CSV")
+        st.dataframe(df)
+    
+    with col2:
+        st.write("#### Predicted CSV")
+        st.dataframe(st.session_state.predicted_df)
 
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Read the prediction results from the response
-        predicted_df = pd.read_csv(BytesIO(response.content))
-        
-        # Display the original and predicted CSV files side by side
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.write("#### Original CSV")
-            st.dataframe(df)
-        
-        with col2:
-            st.write("#### Predicted CSV")
-            st.dataframe(predicted_df)
-
-        # Button to trigger plot generation
-        if st.button("Plot the Linear Regression"):
-            # Now, ensure the spinner is shown for the plot generation process
-            with st.spinner("Generating plot..."):
-                # Convert the predicted dataframe to a CSV to send to the plot endpoint
-                predicted_csv_bytes = predicted_df.to_csv(index=False).encode('utf-8')
-                
-                # Send the predicted CSV to the plot endpoint
-                plot_response = requests.post(PLOT_ENDPOINT, files={"file": predicted_csv_bytes})
+    # Button to trigger plot generation
+    if st.button("Plot the Linear Regression"):
+        # Ensure the spinner is shown for the plot generation process
+        with st.spinner("Generating plot..."):
+            # Convert the predicted dataframe to a CSV to send to the plot endpoint
+            predicted_csv_bytes = st.session_state.predicted_df.to_csv(index=False).encode('utf-8')
             
-            if plot_response.status_code == 200:
-                # Display the plot
-                st.image(BytesIO(plot_response.content))
-            else:
-                st.error("Failed to generate the plot. Please try again.")
-    
-    else:
-        st.error("Failed to generate predictions. Please try again.")
+            # Send the predicted CSV to the plot endpoint
+            plot_response = requests.post(PLOT_ENDPOINT, files={"file": predicted_csv_bytes})
+        
+        if plot_response.status_code == 200:
+            # Display the plot
+            st.image(BytesIO(plot_response.content))
+        else:
+            st.error("Failed to generate the plot. Please try again.")
