@@ -157,7 +157,6 @@ if uploaded_file is not None:
         predicted_df = pd.read_csv(BytesIO(response.content))
         
         # Display the original and predicted CSV files side by side
-        st.write("### Predictions:")
         col1, col2 = st.columns(2)
         
         with col1:
