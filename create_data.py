@@ -2,6 +2,7 @@
 Run this file to generate your own dataset for Star Type Predictor App
 - Just change the number of samples as per your wish and run this file
 - You will have a csv file ready with the name "input_star_data.csv" 
+- You can now pass this data as input on web app
 """
 
 # Change the number of samples based on how much data you want to generate
