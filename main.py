@@ -9,14 +9,14 @@ from fastapi.middleware.cors import CORSMiddleware
 # Create an instance of the FastAPI application
 app = FastAPI()
 
-# # Set up CORS middleware to allow cross-origin requests
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],  # Replace with specific frontend URLs for production
-#     allow_credentials=True,
-#     allow_methods=["*"],  # Allow all HTTP methods
-#     allow_headers=["*"],  # Allow all headers
-# )
+# Set up CORS middleware to allow cross-origin requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://starsize.streamlit.app/"],  # Replace with specific frontend URLs for production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Constants for the linear regression model (taken from training_star_size_predictor.ipynb)
 W = 1.982015  # Weight (slope) for the linear model
