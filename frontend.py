@@ -9,10 +9,21 @@ st.set_page_config(
     page_icon="🌟"
 )
 
+# URL for the background image
+background_image_url = "https://4kwallpapers.com/images/walls/thumbs_3t/10307.jpg"
+
 # Custom CSS for styling
-st.markdown("""
+st.markdown(f"""
     <style>
-        .footer {
+        body {{
+            background-image: url('{background_image_url}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+
+        .footer {{
             position: fixed;
             left: 0;
             bottom: 0;
@@ -22,22 +33,22 @@ st.markdown("""
             text-align: center;
             padding: 10px;
             z-index: 1000;  /* Ensure it's on top of other elements */
-        }
+        }}
 
         /* Create space at the bottom of the app for the footer */
-        .content {
-            padding-bottom: 0px;  /* Adjust based on footer height */
-        }
+        .content {{
+            padding-bottom: 60px;  /* Adjust based on footer height */
+        }}
 
-        [data-testid="stAppViewContainer"] {
+        [data-testid="stAppViewContainer"] {{
             padding-bottom: 60px;  /* Adjust this to match the footer height */
-        }
+        }}
 
-        [data-testid="stSidebar"] {
+        [data-testid="stSidebar"] {{
             background-color: rgba(255, 255, 255, 0.7);
-        }
+        }}
 
-        .black-container {
+        .black-container {{
             background-color: black;
             color: white;
             padding: 20px;
@@ -46,9 +57,9 @@ st.markdown("""
             margin-bottom: 20px;
             font-size: 16px;
             line-height: 1.6;
-        }
+        }}
 
-        .yellow-container {
+        .yellow-container {{
             background-color: #FFD700;  /* Golden yellow */
             color: black;
             padding: 10px;
@@ -56,7 +67,7 @@ st.markdown("""
             font-size: 18px;
             line-height: 1.6;
             margin-bottom: 20px;
-        }
+        }}
     </style>
 """, unsafe_allow_html=True)
 
