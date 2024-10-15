@@ -25,7 +25,6 @@ st.markdown("""
             z-index: 1000;
         }
 
-        /* Add padding at the bottom to avoid overlap with the footer */
         .stApp {
             padding-bottom: 50px;
         }
@@ -35,8 +34,8 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Custom CSS to set the background image and style the containers
-background_image_url = "https://4kwallpapers.com/images/walls/thumbs_3t/10307.jpg"  # Replace with your image URL
+# Custom CSS for background
+background_image_url = "https://4kwallpapers.com/images/walls/thumbs_3t/10307.jpg"
 
 page_bg_img = f"""
 <style>
@@ -52,19 +51,9 @@ page_bg_img = f"""
     background-color: rgba(255, 255, 255, 0.7);
 }}
 
-.black-container {{
-    background-color: black;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    line-height: 1.6;
-}}
 
-.yellow-container {{
-    background-color: #FFD700;  /* Golden yellow */
+.gray-container {{
+    background-color: rgba(255, 255, 255, 0.8); 
     color: black;
     padding: 10px;
     border-radius: 10px;
@@ -72,15 +61,6 @@ page_bg_img = f"""
     line-height: 1.6;
 }}
 
-.green-container {{
-    background-color: #006400;  /* Dark Green */
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 20px;
-    font-size: 18px;
-    line-height: 1.6;
-}}
 </style>
 """
 
@@ -88,45 +68,27 @@ page_bg_img = f"""
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Title and description of the app
-st.title("Star Size Predictor ✨")
+st.markdown('<h1 style="color: violet;">Star Size Predictor ✨</h1>', unsafe_allow_html=True)
 
-# Updated "yellow-container" for app description
+# Instructions on how to use the app
 st.markdown("""
-<div class="yellow-container">
-    <p>This app will predict the Star Size based on its Brightness Value!</p>
-</div>
-""", unsafe_allow_html=True)
-
-# New blue container for step-by-step instructions on how to use the app
-st.markdown("""
-<div class="green-container">
-    <h4>How to use this app:</h4>
+<div class="gray-container">
+    <h4 style="color: maroon;"><u>How to use this app:</u></h4>
     <ol>
-        <li><b><a href="https://drive.google.com/uc?id=1Rp8JATmZGsTv-mlYz9KzTgYJDB4DlC5c" target="_blank">Download</a> a sample CSV or <a href="https://github.com/SpartificialUdemy/project_1/blob/main/create_data.py" target="_blank">create your own</a> in case you don't have the dataset</b></li>
-        <li><b>Upload a CSV file (instructions given below)</b></li>
-        <li><b>Wait for predictions to be displayed</b></li>
-        <li><b>Plot the Linear Regression Results</b></li>
-        <li><b>You can download the prediction.csv and plot.png files if needed</b></li>
+        <li><b>Enter the number of Stars to generate the dataset with its Brightness and Size Values.</b></li>
+        <li><b>Click on Create Dataset and  Generate Predictions Button.</b></li>
+        <li><b>It will generate the dataset and also predict the star sizes using Linear Regression.</b></li>
+        <li><b>Plot the True Sizes and Predicted Sizes by Linear Regression based on the Brightness values.</b></li>
+        <li><b>You can now download the generated data, predicted data and the plot if needed.</b></li>
     </ol>
 </div>
 """, unsafe_allow_html=True)
 
-# Add a black-colored container with white text to explain the CSV format
-st.markdown("""
-<div class="black-container">
-    <h4>How your CSV file should look:</h4>
-    <p>The CSV file you upload should contain exactly two columns:</p>
-    <ul>
-        <li><b>First column:</b> Brightness of the stars (numerical values).</li>
-        <li><b>Second column:</b> Size of the stars (numerical values).</li>
-    </ul>
-    <p>Ensure there are no extra columns or missing values for accurate predictions.</p>
-</div>
-""", unsafe_allow_html=True)
 
-# Define the FastAPI endpoints
+# Define the FastAPI endpoints for local development
 PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com/predict/"
 PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
+CREATE_DATA_ENDPOINT = "https://star-size-predictor.onrender.com/create_data/"
 
 # Initialize session state to track the last uploaded file
 if 'last_uploaded_file' not in st.session_state:
@@ -136,56 +98,55 @@ if 'last_uploaded_file' not in st.session_state:
 if 'predicted_df' not in st.session_state:
     st.session_state.predicted_df = None
 
-# File upload section
-uploaded_file = st.file_uploader("Upload your CSV file", type="csv")
+# Initialize session state for generated dataset
+if 'generated_df' not in st.session_state:
+    st.session_state.generated_df = None
 
-# Check if a new file is uploaded (different from the last one)
-if uploaded_file is not None:
-    # If a new file is uploaded, clear session state and reinitialize
-    if uploaded_file != st.session_state.last_uploaded_file:
-        st.session_state.clear()  # Clear session state to restart the app
-        st.session_state.last_uploaded_file = uploaded_file  # Store the new file
-        st.session_state.predicted_df = None  # Reset predictions
-
-    # Read the uploaded file into a DataFrame
-    df = pd.read_csv(uploaded_file)
-
-    # Check if predictions are already stored in the session state
-    if st.session_state.predicted_df is None:
-        # Send the file to the FastAPI predict endpoint
-        with st.spinner("Generating predictions... (it may take a few mins if the app was idle for more than 15 minutes)."):
-            response = requests.post(PREDICT_ENDPOINT, files={"file": uploaded_file.getvalue()})
-
-        # Check if the request was successful
+# Dataset creation section
+st.text("")
+st.markdown("""
+<div style='background-color: rgba(255, 182, 193, 0.8); padding: 0px 1px 1px 10px; border-radius: 10px;'>
+    <h4 style='color: #483D8B;'>Generate the Star Dataset with its Brightness and Size Values</h4>
+</div>
+""", unsafe_allow_html=True)
+st.text("")
+n_samples = st.number_input("Enter the number of Stars:-", min_value=10, value=500)
+if st.button("Create Dataset and Generate Predictions"):
+    with st.spinner("Generating dataset... (it may take a while if the app was idle for more than 15 minutes)"):
+        response = requests.post(CREATE_DATA_ENDPOINT, params={"n_samples": n_samples})
         if response.status_code == 200:
-            # Read the prediction results from the response
-            st.session_state.predicted_df = pd.read_csv(BytesIO(response.content))  # Store predictions in session state
+            st.session_state.generated_df = pd.read_csv(BytesIO(response.content))
+            
+            # Send the generated dataset for predictions
+            with st.spinner("Generating predictions..."):
+                prediction_response = requests.post(PREDICT_ENDPOINT, files={"file": BytesIO(response.content)})
+                if prediction_response.status_code == 200:
+                    st.session_state.predicted_df = pd.read_csv(BytesIO(prediction_response.content))
+                else:
+                    st.error("Failed to generate predictions. Please try again.")
         else:
-            st.error("Failed to generate predictions. Please try again.")
-    
-    # Display the original and predicted CSV files side by side
+            st.error("Failed to create dataset. Please try again.")
+
+# Display the generated dataset and predicted CSV side by side
+if 'generated_df' in st.session_state and st.session_state.predicted_df is not None:
     col1, col2 = st.columns(2)
     
     with col1:
-        st.write("#### Original CSV")
-        st.dataframe(df)
+        st.write("#### Generated Dataset")
+        st.dataframe(st.session_state.generated_df)
     
     with col2:
         st.write("#### Predicted CSV")
         st.dataframe(st.session_state.predicted_df)
 
-    # Button to trigger plot generation
+# Show the button to trigger plot generation only if predictions are done
+if st.session_state.predicted_df is not None:
     if st.button("Plot the Linear Regression"):
-        # Ensure the spinner is shown for the plot generation process
         with st.spinner("Generating plot..."):
-            # Convert the predicted dataframe to a CSV to send to the plot endpoint
             predicted_csv_bytes = st.session_state.predicted_df.to_csv(index=False).encode('utf-8')
-            
-            # Send the predicted CSV to the plot endpoint
             plot_response = requests.post(PLOT_ENDPOINT, files={"file": predicted_csv_bytes})
         
         if plot_response.status_code == 200:
-            # Display the plot
             st.image(BytesIO(plot_response.content))
         else:
             st.error("Failed to generate the plot. Please try again.")
