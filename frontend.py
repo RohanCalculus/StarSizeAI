@@ -30,7 +30,7 @@ st.markdown("""
         }
     </style>
     <div class="footer">
-        <p>This is a demo project built as a part of the ML for Astronomy Training Program at Spartificial.</p>
+        <p>This is a Linear Regression Demo Project as part of Curriculum of Machine Learning for Astronomy Training Program at Spartificial</p>
     </div>
 """, unsafe_allow_html=True)
 
