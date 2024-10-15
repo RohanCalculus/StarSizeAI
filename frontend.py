@@ -30,7 +30,7 @@ st.markdown("""
         }
     </style>
     <div class="footer">
-        <p>This is a Linear Regression Project created by Rohan (Instructor) as part of Curriculum of Machine Learning for Astronomy Training Program at Spartificial</p>
+        <p>This is project is created as part of Curriculum of Machine Learning for Astronomy Training Program at Spartificial</p>
     </div>
 """, unsafe_allow_html=True)
 
