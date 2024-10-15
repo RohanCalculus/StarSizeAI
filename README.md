@@ -68,8 +68,8 @@ This [web-application](https://starsize.streamlit.app/) allows you to do the fol
 6. **Pandas** - To read CSV files, create the dataframe, and save dataframes back to CSV
 
 
-## Demonstration of the Web Application - Star Size Predictor
+## Video Demonstration of the Web Application - Star Size Predictor
 <a href="https://youtu.be/2mpu0_Wn1l8" target="_blank">
-    <img src="https://github.com/SpartificialUdemy/project_1/blob/main/video-thumbnail.png" alt="Watch the video" width="65%" />
+    <img src="https://github.com/SpartificialUdemy/project_1/blob/main/media/video-thumbnail.png" alt="Watch the video" width="65%" />
 </a>
 
