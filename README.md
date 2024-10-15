@@ -69,9 +69,8 @@ This [web-application](https://starsize.streamlit.app/) allows you to do the fol
 5. **Matplotlib** - To visualize the cost vs iterations and in the web application to visualize the regression line
 6. **Pandas** - To read CSV files, create the dataframe, and save dataframes back to CSV
 
-
-## Video Demonstration of the Web Application - Star Size Predictor
-<a href="https://youtu.be/2mpu0_Wn1l8" target="_blank">
-    <img src="https://github.com/SpartificialUdemy/project_1/blob/main/media/video-thumbnail.png" alt="Watch the video" width="65%" />
-</a>
-
+## Acknowledgments
+- Special thanks to the authors of the libraries used in this project.
+  
+## Contact
+For questions or support, please reach out to [instructors@spartificial.com].
