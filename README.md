@@ -1,4 +1,4 @@
-# Predicting Star Sizes with Artificial Intelligence 🌠
+# ✨ Predicting Star Sizes with Artificial Intelligence 🌠
 
 This [web-application](https://starsize.streamlit.app/) allows you to do the following:
 1. Generate a synthetic dataset of stars with `n` number of stars provided by the user as input.
@@ -8,14 +8,14 @@ This [web-application](https://starsize.streamlit.app/) allows you to do the fol
 
 ![Star Size Predictor GIF](media/video.gif)
 
-## Why Synthetic Dataset is Being Used?
+## 🤔 Why Synthetic Dataset is Being Used?
 * The project aims to help Spartificial students understand linear regression using gradient descent.
 * Students create a dataset by applying noise to a true output equation, facilitating prediction equation generation.
 * This process demonstrates how gradient descent optimizes weights (coefficients) and bias (intercept).
 * The optimized values of weight and bias are then utilized in a web application.
 * Future projects will involve real astronomical datasets to enhance their machine learning skills.
 
-## How to Set Up This Project on Your System
+## ⚙️ How to Set Up This Project on Your System
 1. Clone this repository using the web URL given below or download the ZIP file.
    ```bash
    git clone https://github.com/SpartificialUdemy/project_1.git
@@ -61,7 +61,7 @@ This [web-application](https://starsize.streamlit.app/) allows you to do the fol
    streamlit run frontend.py
    ```
 
-## Tools used in This Project
+## 🔧 Tools used in This Project
 1. **FastAPI** - To build the API endpoints
 2. **Streamlit** - To build and host the frontend of the web application
 3. **Render** - To host the backend API built using FastAPI
@@ -69,8 +69,8 @@ This [web-application](https://starsize.streamlit.app/) allows you to do the fol
 5. **Matplotlib** - To visualize the cost vs iterations and in the web application to visualize the regression line
 6. **Pandas** - To read CSV files, create the dataframe, and save dataframes back to CSV
 
-## Acknowledgments
+## 💖 Acknowledgments
 - Special thanks to the authors of the libraries used in this project.
   
-## Contact
-For questions or support, please reach out to [instructors@spartificial.com].
+## 📧 Contact
+For questions or support, please reach out to [Instructors at Spartificial](https://mail.google.com/mail/?view=cm&fs=1&to=instructors@spartificial.com).
