@@ -7,11 +7,11 @@ This [web-application](https://starsize.streamlit.app/) allows you to do the fol
 4. It will then allow you to plot the predictions and see how the model performed on this unseen dataset.
 
 ## Why Synthetic Dataset is Being Used?
-* This is a tutorial project to help students at Spartificial understand how the linear regression algorithm works using a gradient descent optimizer.
-* The aim was to help students first build the dataset using a true output equation and by adding noise, we aimed to generate the equation of prediction.
-* This allowed our students to understand how the weight (coefficient) and bias (intercept) in the equation were optimized using gradient descent to get the optimal values.
-* These values of weight and bias were then used to build the web application.
-* Future projects will allow them to work on real astronomical datasets to test their machine learning skills!
+* The project aims to help Spartificial students understand linear regression using gradient descent.
+* Students create a dataset by applying noise to a true output equation, facilitating prediction equation generation.
+* This process demonstrates how gradient descent optimizes weights (coefficients) and bias (intercept).
+* The optimized values of weight and bias are then utilized in a web application.
+* Future projects will involve real astronomical datasets to enhance their machine learning skills.
 
 ## How to Set Up This Project on Your System
 1. Clone this repository using the web URL given below or download the ZIP file.
