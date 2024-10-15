@@ -68,7 +68,7 @@ page_bg_img = f"""
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Title and description of the app
-st.markdown('<h1 style="color: violet;">Star Size Predictor ✨</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="color: magenta;">Star Size Predictor ✨</h1>', unsafe_allow_html=True)
 
 # Instructions on how to use the app
 st.markdown("""
@@ -105,8 +105,8 @@ if 'generated_df' not in st.session_state:
 # Dataset creation section
 st.text("")
 st.markdown("""
-<div style='background-color: rgba(255, 182, 193, 0.8); padding: 0px 1px 1px 10px; border-radius: 10px;'>
-    <h4 style='color: #483D8B;'>Generate the Star Dataset with its Brightness and Size Values</h4>
+<div style='background-color: rgba(230, 230, 250, 0.7); padding: 0px 1px 1px 10px; border-radius: 10px;'>
+    <h4 style='color: #000000;'>👇 Generate the Star Dataset with its Brightness and Size Values</h4>
 </div>
 """, unsafe_allow_html=True)
 st.text("")
