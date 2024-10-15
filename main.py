@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Query
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -31,6 +31,39 @@ def default():
         dict: A simple message indicating the application is running.
     """
     return {'App': 'Running'}
+
+@app.post("/create_data/")
+async def create_data(n_samples: int = Query(500, description="Number of samples to generate")):
+    """
+    Endpoint to generate a dataset for the Star Type Predictor App.
+
+    Args:
+        n_samples (int): Number of samples to generate.
+
+    Returns:
+        StreamingResponse: CSV file containing the generated dataset.
+    """
+
+    # Generate Data
+    X_test = 3 * np.random.rand(n_samples, 1)
+    y_test = 9 + 2 * X_test + np.random.rand(n_samples, 1)
+
+    # Convert arrays into dict
+    dict_info = {
+        'Brightness': X_test.flatten(),
+        'True Size': y_test.flatten()
+    }
+
+    # Convert dict to pandas dataframe
+    input_df = pd.DataFrame(dict_info)
+
+    # Convert the DataFrame to CSV format
+    output = input_df.to_csv(index=False).encode('utf-8')
+
+    # Return the CSV file as a streaming response
+    return StreamingResponse(io.BytesIO(output),
+                             media_type="text/csv",
+                             headers={"Content-Disposition": "attachment; filename=input_star_data.csv"})
 
 @app.post("/predict/")
 async def predict(file: UploadFile = File(...)):
@@ -94,9 +127,9 @@ async def plot(file: UploadFile = File(...)):
     plt.plot(df['inputs'], df['predictions'], color='k', label='Predictions', linewidth=2)
     
     # Title and labels for the plot
-    plt.title(f'Linear Regression for Stars Data (RMSE: {round(rmse_score, 1)})', color='maroon', fontsize=15)
-    plt.xlabel('Brightness', color='m', fontsize=13)
-    plt.ylabel('Size', color='m', fontsize=13)
+    plt.title(f'Linear Regression for Stars Data (RMSE: {round(rmse_score, 3)})', color='maroon', fontsize=15, weight='bold')
+    plt.xlabel('Brightness of the Stars', color='m', fontsize=13)
+    plt.ylabel('Size of the Stars', color='m', fontsize=13)
     plt.legend()  # Show legend
     
     # Save the plot to a BytesIO buffer
