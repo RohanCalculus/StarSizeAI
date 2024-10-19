@@ -6,7 +6,7 @@ This [web-application](https://starsize.streamlit.app/) allows you to do the fol
 3. It then uses artificial intelligence (specifically, linear regression) to predict the star sizes based on the brightness values of the stars.
 4. It will then allow you to plot the predictions and see how the model performed on this unseen dataset.
 
-![Star Size Predictor GIF](media/video.gif)
+![Star Size Predictor GIF](media/video_readme.gif)
 
 ## 🤔 Why Synthetic Dataset is Being Used?
 * The project aims to help Spartificial students understand linear regression using gradient descent.
