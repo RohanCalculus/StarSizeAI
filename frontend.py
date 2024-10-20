@@ -35,7 +35,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Custom CSS for background
-background_image_url = "https://4kwallpapers.com/images/walls/thumbs_3t/10307.jpg"
+background_image_url = "https://i.ytimg.com/vi/tU4aKTz9Ky0/maxresdefault.jpg"
 
 page_bg_img = f"""
 <style>
