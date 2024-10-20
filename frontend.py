@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 from io import BytesIO
+import random
 
 # Set the page configuration with a title and star emoji
 st.set_page_config(
@@ -34,8 +35,17 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Custom CSS for background
-background_image_url = "https://i.ytimg.com/vi/tU4aKTz9Ky0/maxresdefault.jpg"
+# Custom CSS for background images
+background_image_urls = [
+    "https://i.ytimg.com/vi/tU4aKTz9Ky0/maxresdefault.jpg",
+    "https://i.ytimg.com/vi/HMSRTEnV_Hw/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEsgRihyMA8=&amp;rs=AOn4CLBVO1pirlKMXbkO0WqSMXa0OOOssQ.jpg",  
+    "https://i.pinimg.com/originals/04/5f/10/045f10b4643df21923387b777f56bcbb.jpg",
+    "https://image.winudf.com/v2/image/Y29tLkx3cE1hc3Rlci5TcGExNDdfc2NyZWVuXzBfazg2aXh1ZG0/screen-0.jpg?fakeurl=1&type=.jpg",
+    "https://steamuserimages-a.akamaihd.net/ugc/80344884637849543/48DFCE86803381928F8315C96FCF1FDD94118859/?imw=512&amp;imh=320&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true.jpg"
+]
+
+# Randomly select a background image URL
+background_image_url = random.choice(background_image_urls)
 
 page_bg_img = f"""
 <style>
