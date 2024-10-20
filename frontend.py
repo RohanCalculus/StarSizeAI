@@ -41,7 +41,9 @@ background_image_urls = [
     "https://i.ytimg.com/vi/HMSRTEnV_Hw/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEsgRihyMA8=&amp;rs=AOn4CLBVO1pirlKMXbkO0WqSMXa0OOOssQ.jpg",  
     "https://i.pinimg.com/originals/04/5f/10/045f10b4643df21923387b777f56bcbb.jpg",
     "https://image.winudf.com/v2/image/Y29tLkx3cE1hc3Rlci5TcGExNDdfc2NyZWVuXzBfazg2aXh1ZG0/screen-0.jpg?fakeurl=1&type=.jpg",
-    "https://steamuserimages-a.akamaihd.net/ugc/80344884637849543/48DFCE86803381928F8315C96FCF1FDD94118859/?imw=512&amp;imh=320&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true.jpg"
+    "https://steamuserimages-a.akamaihd.net/ugc/80344884637849543/48DFCE86803381928F8315C96FCF1FDD94118859/?imw=512&amp;imh=320&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true.jpg",
+    "https://media.wired.com/photos/5b7f64cbbe2f8d3a624b77b2/4:3/w_2000,h_1500,c_limit/SPoW_82318_01.jpg",
+    "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5eae36e3-278f-4731-be00-1440d36eca76/d30idy4-9a4a96ed-33be-4941-99c1-8b77adb23288.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi81ZWFlMzZlMy0yNzhmLTQ3MzEtYmUwMC0xNDQwZDM2ZWNhNzYvZDMwaWR5NC05YTRhOTZlZC0zM2JlLTQ5NDEtOTljMS04Yjc3YWRiMjMyODguanBnIn1dXX0.urB7x7zyDCCRhro0z1HDVMWXZ9HJi9NgdXurlCon43Q"
 ]
 
 # Randomly select a background image URL
