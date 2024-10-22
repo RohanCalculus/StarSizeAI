@@ -1,10 +1,13 @@
+# Libraries to develop the API
 from fastapi import FastAPI, File, UploadFile, Query
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import io
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+
+# Libraries to handle the data and visualization
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import io
 
 # Create an instance of the FastAPI application
 app = FastAPI()
@@ -12,10 +15,10 @@ app = FastAPI()
 # Set up CORS middleware to allow cross-origin requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://starsize.streamlit.app/"],  # Replace with specific frontend URLs for production
-    allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_origins=["https://starsize.streamlit.app/"],  # Only this origin will be allowed to make request to API
+    allow_credentials=True, # Allows the server to include cookies in cross-origin requests
+    allow_methods=["*"],    # Allow all HTTP methods
+    allow_headers=["*"],    # Allow all headers
 )
 
 # Constants for the linear regression model (taken from training_star_size_predictor.ipynb)
