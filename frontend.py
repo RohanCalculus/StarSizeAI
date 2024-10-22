@@ -25,7 +25,7 @@ background_image_urls = [
 if 'background_image_url' not in st.session_state:
     st.session_state.background_image_url = random.choice(background_image_urls)
 
-# Inject CSS for background image
+# Inject CSS for background image and footer
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
@@ -35,11 +35,9 @@ page_bg_img = f"""
     background-repeat: no-repeat;
     background-attachment: fixed;
 }}
-
 [data-testid="stSidebar"] {{
     background-color: rgba(255, 255, 255, 0.7);
 }}
-
 .gray-container {{
     background-color: rgba(255, 255, 255, 0.8); 
     color: black;
@@ -47,6 +45,18 @@ page_bg_img = f"""
     border-radius: 10px;
     font-size: 18px;
     line-height: 1.6;
+}}
+.footer {{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    border-top: 1px solid #ccc;
 }}
 </style>
 """
@@ -106,31 +116,37 @@ n_samples = st.number_input("Enter the number of Stars:-", min_value=10, value=5
 
 # If the button is clicked
 if st.button("Create Dataset and Generate Predictions"):
+    
+    # Ensure footer remains visible
+    st.markdown("""<div class="footer">This project is developed by <b>Spartificial</b> as a part of <b>Machine Learning for Astronomy Training Program</b>.</div>""", unsafe_allow_html=True)
+    
     # Show the spinner with a message
     with st.spinner("Generating dataset... (it may take a while if the app was idle for more than 15 minutes)"):
         # Send the post HTTP request to /create_data/ endpoint with n_samples as input parameter
         response = requests.post(CREATE_DATA_ENDPOINT, params={"n_samples": n_samples})
-        # If the HTTP reponse is a success (200)
+        
+        # If the HTTP response is a success (200)
         if response.status_code == 200:
             # Update the session state of the generated dataframe from none to generated_df
             st.session_state.generated_df = pd.read_csv(BytesIO(response.content))
             
-            # Send the generated dataset for predictions
+            # Use another spinner for generating predictions
             with st.spinner("Generating predictions..."):
-                # Send the HTTP post request to /predict/ endpoint with the csv content of generated data
+                # Send the HTTP post request to /predict/ endpoint
                 prediction_response = requests.post(PREDICT_ENDPOINT, files={"file": BytesIO(response.content)})
-                # If the HTTP reponse is a success (200)
+                
                 if prediction_response.status_code == 200:
-                    # Update the session state of the predicted dataframe from none to predicted_df
+                    # Update the session state of the predicted dataframe
                     st.session_state.predicted_df = pd.read_csv(BytesIO(prediction_response.content))
                 else:
-                    # If HTTP response for prediction is not a success display the error!
                     error_message = prediction_response.json().get("error", "Unknown error occurred.")
-                    st.error(f"Failed to generate predictions. Error: {error_message}. Please ensure the dataset is valid and try again.")
+                    st.error(f"Failed to generate predictions. Error: {error_message}.")
         else:
-            # If HTTP response for generating the dataset is not a success display the error!
             error_message = response.json().get("error", "Unknown error occurred.")
-            st.error(f"Failed to create dataset. Error: {error_message}. Please check your input and try again.")
+            st.error(f"Failed to create dataset. Error: {error_message}.")
+    
+
+
 
 ### Display the dataframes (generated and predicted) side by side ###
 
@@ -155,6 +171,9 @@ if 'generated_df' in st.session_state and st.session_state.predicted_df is not N
 if st.session_state.predicted_df is not None:
     # If the plot button is clicked
     if st.button("Plot the Linear Regression"):
+        # Ensure footer remains visible
+        st.markdown("""<div class="footer">This project is developed by <b>Spartificial</b> as a part of <b>Machine Learning for Astronomy Training Program</b>.</div>""", unsafe_allow_html=True)
+
         # Display the spinner with the message
         with st.spinner("Generating plot..."):
             # Convert the predicted DataFrame to CSV format and encode it in UTF-8
@@ -169,3 +188,10 @@ if st.session_state.predicted_df is not None:
             # Else display the error
             error_message = plot_response.json().get("error", "Unknown error occurred.")
             st.error(f"Failed to generate the plot. Error: {error_message}. Please check if the predictions are correct and try again.")
+
+# Footer Section
+st.markdown("""
+<div class="footer">
+    This project is developed by <b>Spartificial</b> as a part of <b>Machine Learning for Astronomy Training Program</b>.
+</div>
+""", unsafe_allow_html=True)
