@@ -3,7 +3,7 @@
 This [web-application](https://starsize.streamlit.app/) allows you to do the following:
 1. Generate a synthetic dataset of stars with `n` number of stars provided by the user as input.
 2. This dataset includes the synthetic brightness of the stars and respective synthetic true sizes.
-3. It then uses artificial intelligence (specifically, linear regression) to predict the star sizes based on the brightness values of the stars.
+3. It then uses ML (linear regression) to predict the star sizes based on the brightness values of the stars.
 4. It will then allow you to plot the predictions and see how the model performed on this unseen dataset.
 
 ![Star Size Predictor GIF](media/video_readme.gif)
