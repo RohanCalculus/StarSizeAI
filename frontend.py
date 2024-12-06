@@ -82,9 +82,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Define the API endpoints for making requests using streamlit web-app
-PREDICT_ENDPOINT = "https://star-size-predictor.onrender.com/predict/"
-PLOT_ENDPOINT = "https://star-size-predictor.onrender.com/plot/"
-CREATE_DATA_ENDPOINT = "https://star-size-predictor.onrender.com/create_data/"
+PREDICT_ENDPOINT = "https://starsize-predictor.onrender.com/predict/"
+PLOT_ENDPOINT = "https://starsize-predictor.onrender.com/plot/"
+CREATE_DATA_ENDPOINT = "https://starsize-predictor.onrender.com/create_data/"
 
 ### Setting up the session state ###
 
