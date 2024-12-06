@@ -192,6 +192,6 @@ if st.session_state.predicted_df is not None:
 # Footer Section
 st.markdown("""
 <div class="footer">
-    This project is developed by <b>Spartificial</b> as a part of <b>Machine Learning for Astronomy Training Program</b>.
+    Made with ❤️ by <b>Rohan</b>
 </div>
 """, unsafe_allow_html=True)
