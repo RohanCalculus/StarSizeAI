@@ -118,7 +118,7 @@ n_samples = st.number_input("Enter the number of Stars:-", min_value=10, value=5
 if st.button("Create Dataset and Generate Predictions"):
     
     # Ensure footer remains visible
-    st.markdown("""<div class="footer">This project is developed by <b>Spartificial</b> as a part of <b>Machine Learning for Astronomy Training Program</b>.</div>""", unsafe_allow_html=True)
+    st.markdown("""<div class="footer">Made with ❤️ by <b>Rohan</b></div>""", unsafe_allow_html=True)
     
     # Show the spinner with a message
     with st.spinner("Generating dataset... (it may take a while if the app was idle for more than 15 minutes)"):
@@ -172,7 +172,7 @@ if st.session_state.predicted_df is not None:
     # If the plot button is clicked
     if st.button("Plot the Linear Regression"):
         # Ensure footer remains visible
-        st.markdown("""<div class="footer">This project is developed by <b>Spartificial</b> as a part of <b>Machine Learning for Astronomy Training Program</b>.</div>""", unsafe_allow_html=True)
+        st.markdown("""<div class="footer">Made with ❤️ by <b>Rohan</b></div>""", unsafe_allow_html=True)
 
         # Display the spinner with the message
         with st.spinner("Generating plot..."):
